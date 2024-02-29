@@ -4,8 +4,13 @@ import { useEffect } from 'react';
 import ETH from "../../public/eth.svg"
 import Image from 'next/image';
 
+const baseUrl :string = "https://etherscan.io/token/"
 interface Coin {
     name: string;
+    platform: {
+        id: number;
+        token_address: string;
+    }
     quote: {
       USD: {
         percent_change_1h: number;
@@ -24,11 +29,10 @@ interface Coin {
 
   export const DisplayScreen: React.FC<DisplayScreenProps> = ({ coin }) => {
 
-    useEffect(() => {
-      console.log(coin);
-    }, [coin]);
+
+
     return (
-      <div className='w-80 md:w-96 h-96  rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-600 flex flex-col justify-center gap-4 items-center  text-center'>
+      <div  className='w-80 md:w-96 h-96 hover:cursor-pointer hover:bg-slate-800 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-600 flex flex-col justify-center gap-4 items-center  text-center'>
 
         <h2 className='font-bold text-2xl'>Coin of the day</h2>
 
@@ -53,11 +57,9 @@ interface Coin {
   
   export const DisplayScreenWeek: React.FC<DisplayScreenProps> = ({ coin }) => {
 
-    useEffect(() => {
-      console.log(coin);
-    }, [coin]);
+
     return (
-      <div className='w-80 md:w-96 h-96  rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-600 flex flex-col justify-center items-center gap-4 text-center'>
+      <div id={coin.platform.token_address} onClick={(e) => window.open(baseUrl + e.currentTarget.id, "_blank")} className='w-80 md:w-96 h-96 hover:cursor-pointer hover:bg-slate-800 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-600 flex flex-col justify-center items-center gap-4 text-center'>
 
         <h2 className='font-bold text-2xl'>Coin of the week</h2>
 
@@ -74,6 +76,7 @@ interface Coin {
 
 
 
+
       </div>
     );
   };
@@ -81,11 +84,9 @@ interface Coin {
   
   export const DisplayScreenMonth: React.FC<DisplayScreenProps> = ({ coin }) => {
 
-    useEffect(() => {
-      console.log(coin);
-    }, [coin]);
+   
     return (
-      <div className='w-80 md:w-96 h-96  rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-600 flex flex-col justify-center items-center gap-4 text-center'>
+      <div id={coin.platform.token_address} onClick={(e) => window.open(baseUrl + e.currentTarget.id, "_blank")} className='w-80 md:w-96 h-96 hover:cursor-pointer hover:bg-slate-800 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-slate-600 flex flex-col justify-center items-center gap-4 text-center'>
 
         <h2 className='font-bold text-2xl'>Coin of the month</h2>
 
@@ -105,3 +106,5 @@ interface Coin {
       </div>
     );
   };
+
+  

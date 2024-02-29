@@ -18,6 +18,8 @@ export default function Home() {
 
   useEffect(() => {
 
+
+
     axios.get("/api/fetch")
       .then((res) => {
         setCryptoArr(res.data.data);
@@ -91,7 +93,7 @@ export default function Home() {
         <p>See what crypto is trending!</p>
 
         <div className="absolute top-5 left-5 flex items-center justify-center gap-2"> 
-        <Image className="animate-spin duration-200" src={loader} alt="loader" width={25} height={25} />
+        <Image className="animate-spin" src={loader} alt="loader" width={25} height={25} />
         <p>{timer}</p>
         </div>
       </header>
@@ -100,7 +102,7 @@ export default function Home() {
 
               
         {ofTheDay && <section className="w-80 h-96 flex justify-center items-center">
-          <DisplayScreen coin={ofTheWeek} />
+          <DisplayScreen coin={ofTheDay} />
         </section>}
         {ofTheWeek && <section className="w-80 h-96 flex justify-center items-center">
           <DisplayScreenWeek coin={ofTheWeek} />
