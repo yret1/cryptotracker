@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import loader from "@/public/vercel.svg"
 import { DisplayScreen, DisplayScreenWeek, DisplayScreenMonth } from "./components/displayScreen";
+import Loading from "./components/Loading";
 
 import { Markets } from "./components/Markets";
 
@@ -15,15 +16,18 @@ export default function Home() {
   const [ofTheWeek, setOfTheWeek] = useState<any>(null);
   const [ofTheMonth, setOfTheMonth] = useState<any>(null);
   const [timer, setTimer] = useState<number>(120);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
 
+    setLoading(true);
 
 
     axios.get("/api/fetch")
       .then((res) => {
         setCryptoArr(res.data.data);
       })
+      .then(() => setLoading(false))
       .catch((error) => console.error("Failed to fetch data:", error));
 
       const next = setInterval(async () => {
@@ -32,13 +36,17 @@ export default function Home() {
 
      
 
+
    const inter = setInterval(async () => {
+
+    setLoading(true);
       
 
       axios.get("/api/fetch")
       .then((res) => {
         setCryptoArr(res.data.data);
       })
+      .then(() => setLoading(false))
       .catch((error) => console.error("Failed to fetch data:", error));
 
       setTimer(120)
@@ -82,12 +90,12 @@ export default function Home() {
     setOfTheDay(bestDay);
     setOfTheWeek(bestWeek);
     setOfTheMonth(bestMonth);
-    console.log(symbols);
   }, [cryptoArr]);
 
 
   return (
     <main className="flex min-h-screen flex-col gap-6 items-center justify-start p-2 bg-slate-900">
+      {loading && <Loading />}
       <header className="w-screen flex flex-col justify-center items-center">
         <h1 className="font-bold text-3xl">COINTRACK</h1>
         <p>See what crypto is trending!</p>
